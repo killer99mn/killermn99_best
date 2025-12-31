@@ -29,18 +29,22 @@
   </style>
 </head>
 <body>
+  <!-- منو -->
   <div id="menu">
     <div id="logo">✨ killermn99 ✨</div>
     <h1>🎮 بازی دو نفره Mani</h1>
     <button class="btn" onclick="startGame()">شروع بازی</button>
   </div>
 
+  <!-- صفحه بازی -->
   <canvas id="gameCanvas" width="800" height="500" style="display:none;"></canvas>
 
+  <!-- صفحه پایان -->
   <div id="endScreen" style="display:none;">
     <h1>🏆 پایان بازی</h1>
-    <button class="btn" onclick="startGame()">بازی مجدد</button>
-    <button class="btn" onclick="showMenu()">بازگشت به منو</button>
+    <p>می‌خوای دوباره بازی کنی یا برگردی به منو؟</p>
+    <button class="btn" onclick="startGame()">🔄 بازی مجدد</button>
+    <button class="btn" onclick="showMenu()">🏠 بازگشت به منو</button>
   </div>
 
   <script>
@@ -56,6 +60,7 @@
     function draw() {
       ctx.clearRect(0,0,canvas.width,canvas.height);
 
+      // خط وسط
       ctx.strokeStyle = '#555';
       ctx.beginPath();
       ctx.moveTo(canvas.width/2,0);
@@ -88,6 +93,7 @@
         if(p.y>canvas.height-30) p.y=canvas.height-30;
       });
 
+      // تیرها با سرعت دو برابر
       players[0].bullets.forEach(b => b.x += 10);
       players[1].bullets.forEach(b => b.x -= 10);
 
@@ -138,6 +144,7 @@
       gameInterval = setInterval(update,50);
     }
 
+    // کنترل با کیبورد
     document.addEventListener('keydown', e => {
       if(e.key==='w') players[0].vy=-5;
       if(e.key==='s') players[0].vy=5;
@@ -159,6 +166,7 @@
       if(e.key==='ArrowUp' || e.key==='ArrowDown') players[1].vy=0;
     });
 
+    // هر ثانیه یک تیر اضافه بشه (تا سقف 5)
     setInterval(() => {
       players.forEach(p => {
         if(p.ammo<5) p.ammo++;
